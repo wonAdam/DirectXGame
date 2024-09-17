@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <memory>
 using namespace std;
 
 // WIN

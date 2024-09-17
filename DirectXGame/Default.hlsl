@@ -14,7 +14,8 @@ VOut VS(float4 position : POSITION, float4 color : COLOR)
 {
     VOut output;
 
-    output.position = mul(matFinal, position);
+    output.position = position;
+    //output.position = mul(matFinal, position);
     output.color = color;
 
     return output;

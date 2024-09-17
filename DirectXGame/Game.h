@@ -17,6 +17,7 @@ public:
 	void Render();
 
 private:
+	void InitDevice();
 	void InitViewport();
 	bool InitShader();
 

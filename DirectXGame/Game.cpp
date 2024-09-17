@@ -20,11 +20,12 @@ void Game::Init(HWND hwnd)
 	_width = GWinSizeX;
 	_height = GWinSizeY;
 
+    InitDevice();
     InitViewport();
     InitShader();
 }
 
-void Game::InitViewport()
+void Game::InitDevice()
 {
     // create a struct to hold information about the swap chain
     DXGI_SWAP_CHAIN_DESC scd;
@@ -57,6 +58,10 @@ void Game::InitViewport()
         NULL,
         &devcon);
 
+}
+
+void Game::InitViewport()
+{
     D3D11_TEXTURE2D_DESC texd;
     ZeroMemory(&texd, sizeof(texd));
 

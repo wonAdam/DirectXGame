@@ -1,13 +1,13 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Game.h"
 
 #define MAX_LOADSTRING 100
 
-// ���� ����:
+// 전역 변수:
 HINSTANCE hInst;
 HWND hWnd;
 
-// �� �ڵ� ��⿡ ���Ե� �Լ��� ������ �����մϴ�:
+// 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -17,10 +17,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    // 1) ������ â ���� ���
+    // 1) 윈도우 창 정보 등록
     MyRegisterClass(hInstance);
 
-    // 2) ������ â ����
+    // 2) 윈도우 창 생성
     if (!InitInstance(hInstance, nCmdShow))
         return FALSE;
 
@@ -29,7 +29,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg = {};
 
-    // �⺻ �޽��� �����Դϴ�:
+    // 기본 메시지 루프입니다:
     while (msg.message != WM_QUIT)
     {
         if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -50,9 +50,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 //
-//  �Լ�: MyRegisterClass()
+//  함수: MyRegisterClass()
 //
-//  �뵵: â Ŭ������ ����մϴ�.
+//  용도: 창 클래스를 등록합니다.
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
@@ -77,18 +77,18 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 }
 
 //
-//   �Լ�: InitInstance(HINSTANCE, int)
+//   함수: InitInstance(HINSTANCE, int)
 //
-//   �뵵: �ν��Ͻ� �ڵ��� �����ϰ� �� â�� ����ϴ�.
+//   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
 //
-//   �ּ�:
+//   주석:
 //
-//        �� �Լ��� ���� �ν��Ͻ� �ڵ��� ���� ������ �����ϰ�
-//        �� ���α׷� â�� ���� ���� ǥ���մϴ�.
+//        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
+//        주 프로그램 창을 만든 다음 표시합니다.
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-    hInst = hInstance; // �ν��Ͻ� �ڵ��� ���� ������ �����մϴ�.
+    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
     RECT windowRect = { 0, 0, Game::GWinSizeX, Game::GWinSizeY };
     ::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
@@ -108,13 +108,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 }
 
 //
-//  �Լ�: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
-//  �뵵: �� â�� �޽����� ó���մϴ�.
+//  용도: 주 창의 메시지를 처리합니다.
 //
-//  WM_COMMAND  - ���ø����̼� �޴��� ó���մϴ�.
-//  WM_PAINT    - �� â�� �׸��ϴ�.
-//  WM_DESTROY  - ���� �޽����� �Խ��ϰ� ��ȯ�մϴ�.
+//  WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
+//  WM_PAINT    - 주 창을 그립니다.
+//  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -124,7 +124,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
     {
         int wmId = LOWORD(wParam);
-        // �޴� ������ ���� �м��մϴ�:
+        // 메뉴 선택을 구문 분석합니다:
         switch (wmId)
         {
         case 105:
@@ -139,7 +139,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
-        // TODO: ���⿡ hdc�� ����ϴ� �׸��� �ڵ带 �߰��մϴ�...
+        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
         EndPaint(hWnd, &ps);
     }
     break;

@@ -1,4 +1,4 @@
-#include "pch.h"
+癤�#include "pch.h"
 #include "Game.h"
 #include "Triangle.h"
 
@@ -117,8 +117,8 @@ void Game::InitViewport()
     _viewport.TopLeftY = 0;
     _viewport.Width = GWinSizeX;
     _viewport.Height = GWinSizeY;
-    _viewport.MinDepth = 0; // 객체가 깊이 버퍼에 가장 가까이 있을 수 있는 최대값은 0.0입니다 
-    _viewport.MaxDepth = 1; // 객체가 깊이 버퍼에 가장 멀리 있을 수 있는 최대값은 1.0입니다
+    _viewport.MinDepth = 0; 
+    _viewport.MaxDepth = 1; 
 
     _devcon->RSSetViewports(1, &_viewport);
 }

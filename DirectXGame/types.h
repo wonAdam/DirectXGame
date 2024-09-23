@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DirectXMath.h"
 
 using int8 = __int8;

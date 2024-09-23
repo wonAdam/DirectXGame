@@ -36,7 +36,11 @@ void Game::Init(HWND hwnd)
     InitViewport();
     InitShader();
 
-    t = new Triangle();
+    t = new Triangle("Triangle 1");
+    t->UseDebug();
+
+    t2 = new Triangle("Triangle 2");
+    t2->UseDebug();
 }
 
 void Game::InitDevice()
@@ -242,44 +246,29 @@ void Game::Render()
 {
     static const float _clearColor[4] = { 0.f, 0.f, 0.f, 0.f };
 
-    // Start the Dear ImGui frame
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-    ImGui::Checkbox("Dummy Checkbox", &_bDummyCheckbox);
-
-    ImGui::SliderFloat("float", &_dummyFloat, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-    ImGui::ColorEdit3("clear color", _dummyColor); // Edit 3 floats representing a color
-
-    if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        _dummyCounter++;
-
-    ImGui::SameLine();
-    ImGui::Text("counter = %d", _dummyCounter);
-
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    ImGui::End();
-
-    // Rendering
-    ImGui::Render();
+    t->GameUpdate();
 
     // Render Begin
     {
+        // ImGui Render Begin
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
         _devcon->OMSetRenderTargets(1, &_backbuffer, nullptr);
         _devcon->ClearRenderTargetView(_backbuffer, _clearColor);
         _devcon->RSSetViewports(1, &_viewport);
     }
 
     t->RenderUpdate();
-
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
+    t2->RenderUpdate();
+    
     // Render End
     {
+        // ImGui Render End
+        ImGui::Render();
+        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
         _swapchain->Present(1, 0);
     }
 

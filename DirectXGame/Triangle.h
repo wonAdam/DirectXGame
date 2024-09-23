@@ -1,9 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 class Triangle : public GameObject
 {
 public:
-	Triangle();
+	Triangle(std::string name);
 
 	virtual void GameUpdate() override;
 	virtual void RenderUpdate() override;

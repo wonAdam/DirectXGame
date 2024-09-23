@@ -55,6 +55,7 @@ private:
 	D3D11_VIEWPORT _viewport;
 
 	class Triangle* t = nullptr;
+	class Triangle* t2 = nullptr;
 
 	bool _bDummyCheckbox = false;
 	float _dummyFloat = 0.0f;

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "types.h"
 #include "Triangle.h"
 #include "Game.h"

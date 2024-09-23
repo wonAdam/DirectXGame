@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // STL
 #include <vector>
@@ -17,6 +17,11 @@ using namespace std;
 #include <d3dcompiler.h>
 #include <wrl.h>
 #include <DirectXMath.h>
+
+#include "imgui.h"
+#include "backends/imgui_impl_win32.h"
+#include "backends/imgui_impl_dx11.h"
+
 using namespace DirectX;
 using namespace Microsoft::WRL;
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "types.h"
 
@@ -30,6 +30,7 @@ public:
 
 private:
 	void InitDevice();
+	void InitImGui();
 	void InitViewport();
 	bool InitShader();
 
@@ -54,5 +55,10 @@ private:
 	D3D11_VIEWPORT _viewport;
 
 	class Triangle* t = nullptr;
+
+	bool _bDummyCheckbox = false;
+	float _dummyFloat = 0.0f;
+	float _dummyColor[3];
+	int _dummyCounter = 0;
 };
 

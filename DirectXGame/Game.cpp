@@ -32,6 +32,7 @@ void Game::Init(HWND hwnd)
 	_height = GWinSizeY;
 
     InitDevice();
+    InitImGui();
     InitViewport();
     InitShader();
 
@@ -72,6 +73,24 @@ void Game::InitDevice()
         NULL,
         &_devcon);
 
+}
+
+void Game::InitImGui()
+{
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsLight();
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplWin32_Init(_hwnd);
+    ImGui_ImplDX11_Init(_dev, _devcon);
 }
 
 void Game::InitViewport()
@@ -223,6 +242,31 @@ void Game::Render()
 {
     static const float _clearColor[4] = { 0.f, 0.f, 0.f, 0.f };
 
+    // Start the Dear ImGui frame
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+    ImGui::Checkbox("Dummy Checkbox", &_bDummyCheckbox);
+
+    ImGui::SliderFloat("float", &_dummyFloat, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+    ImGui::ColorEdit3("clear color", _dummyColor); // Edit 3 floats representing a color
+
+    if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+        _dummyCounter++;
+
+    ImGui::SameLine();
+    ImGui::Text("counter = %d", _dummyCounter);
+
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
+
+    // Rendering
+    ImGui::Render();
+
     // Render Begin
     {
         _devcon->OMSetRenderTargets(1, &_backbuffer, nullptr);
@@ -232,8 +276,12 @@ void Game::Render()
 
     t->RenderUpdate();
 
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
     // Render End
     {
         _swapchain->Present(1, 0);
     }
+
+
 }
